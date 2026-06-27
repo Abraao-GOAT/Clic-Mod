@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clic Mod - Moda Circular</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo">
+    <div class="logo">
+      <span class="logo-bola">CM</span>
+      <div>
+        <h1>Clic Mod</h1>
+        <p>Moda circular em um clique</p>
+      </div>
+    </div>
+
+    <nav>
+      <button onclick="mostrarTela('inicio')">Início</button>
+      <button onclick="mostrarTela('feed')">Roupas</button>
+      <button onclick="mostrarTela('publicar')">Publicar</button>
+      <button onclick="mostrarTela('perfil')">Perfil</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- TELA INICIAL -->
+    <section id="inicio" class="tela ativa hero">
+      <div class="hero-texto">
+        <h2>Dê uma nova vida às suas roupas</h2>
+        <p>
+          Compre, venda, troque ou doe roupas usadas em bom estado.
+          O Clic Mod ajuda a reduzir o descarte incorreto e incentiva a moda sustentável.
+        </p>
+
+        <div class="acoes">
+          <button class="btn-principal" onclick="mostrarTela('cadastro')">Criar conta</button>
+          <button class="btn-secundario" onclick="mostrarTela('login')">Entrar</button>
+        </div>
+      </div>
+
+      <div class="card-impacto">
+        <h3>Impacto do projeto</h3>
+        <p>👕 Roupas reaproveitadas</p>
+        <p>♻️ Menos descarte têxtil</p>
+        <p>💜 Economia circular</p>
+      </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="login" class="tela">
+      <div class="form-card">
+        <h2>Entrar</h2>
+        <label>E-mail</label>
+        <input id="loginEmail" type="email" placeholder="Digite seu e-mail" />
+
+        <label>Senha</label>
+        <input id="loginSenha" type="password" placeholder="Digite sua senha" />
+
+        <button class="btn-principal" onclick="entrar()">Entrar</button>
+        <p class="texto-menor">Ainda não tem conta? <a onclick="mostrarTela('cadastro')">Criar conta</a></p>
+      </div>
+    </section>
+
+    <!-- CADASTRO -->
+    <section id="cadastro" class="tela">
+      <div class="form-card">
+        <h2>Criar conta</h2>
+        <label>Nome</label>
+        <input id="cadNome" type="text" placeholder="Seu nome" />
+
+        <label>E-mail</label>
+        <input id="cadEmail" type="email" placeholder="Seu e-mail" />
+
+        <label>Senha</label>
+        <input id="cadSenha" type="password" placeholder="Crie uma senha" />
+
+        <button class="btn-principal" onclick="cadastrar()">Cadastrar</button>
+        <p class="texto-menor">Já tem conta? <a onclick="mostrarTela('login')">Entrar</a></p>
+      </div>
+    </section>
+
+    <!-- FEED -->
+    <section id="feed" class="tela">
+      <div class="cabecalho-tela">
+        <h2>Roupas disponíveis</h2>
+        <button class="btn-principal" onclick="mostrarTela('publicar')">+ Publicar roupa</button>
+      </div>
+
+      <div class="filtros">
+        <input id="busca" type="text" placeholder="Buscar roupa..." oninput="renderizarRoupas()" />
+        <select id="filtroTipo" onchange="renderizarRoupas()">
+          <option value="">Todos</option>
+          <option value="Venda">Venda</option>
+          <option value="Troca">Troca</option>
+          <option value="Doação">Doação</option>
+        </select>
+      </div>
+
+      <div id="listaRoupas" class="grid-roupas"></div>
+    </section>
+
+    <!-- PUBLICAR -->
+    <section id="publicar" class="tela">
+      <div class="form-card grande">
+        <h2>Publicar roupa</h2>
+
+        <label>Foto da roupa</label>
+        <input id="fotoRoupa" type="file" accept="image/*" />
+
+        <label>Nome da peça</label>
+        <input id="nomeRoupa" type="text" placeholder="Ex: Jaqueta jeans" />
+
+        <label>Tamanho</label>
+        <select id="tamanhoRoupa">
+          <option value="">Selecione</option>
+          <option>PP</option>
+          <option>P</option>
+          <option>M</option>
+          <option>G</option>
+          <option>GG</option>
+        </select>
+
+        <label>Estado da peça</label>
+        <select id="estadoRoupa">
+          <option value="">Selecione</option>
+          <option>Novo</option>
+          <option>Ótimo</option>
+          <option>Bom</option>
+          <option>Usado</option>
+        </select>
+
+        <label>Tipo de anúncio</label>
+        <select id="tipoRoupa">
+          <option>Venda</option>
+          <option>Troca</option>
+          <option>Doação</option>
+        </select>
+
+        <label>Preço</label>
+        <input id="precoRoupa" type="number" placeholder="Ex: 35" />
+
+        <label>Descrição</label>
+        <textarea id="descRoupa" placeholder="Descreva a peça..."></textarea>
+
+        <button class="btn-principal" onclick="publicarRoupa()">Publicar</button>
+      </div>
+    </section>
+
+    <!-- PERFIL -->
+    <section id="perfil" class="tela">
+      <div class="perfil-card">
+        <h2>Meu Perfil</h2>
+        <p><strong>Usuário:</strong> <span id="perfilNome">Visitante</span></p>
+        <p><strong>Pontos sustentáveis:</strong> <span id="pontos">0</span></p>
+
+        <div class="painel">
+          <div>
+            <h3>Como o Clic Mod ganha dinheiro?</h3>
+            <p>O sistema cobra 5% de comissão em vendas, oferece plano premium para brechós e permite anúncios de marcas sustentáveis.</p>
+          </div>
+          <div>
+            <h3>Diferencial</h3>
+            <p>O usuário pode vender, trocar, doar ou encaminhar roupas para reciclagem em um só lugar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Clic Mod © 2026 - Projeto de Economia Circular na Moda</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
